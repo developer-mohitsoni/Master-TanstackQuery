@@ -1,5 +1,26 @@
+import { NavLink } from "react-router-dom";
+
 const Header = () => {
-  return <h1 className="text-3xl font-bold">Header</h1>;
+  return (
+    <>
+      <header>
+        <div>
+          <NavLink to="/">Tanstack Query</NavLink>
+          <ul>
+            <li>
+              <NavLink to="/">Home</NavLink>
+            </li>
+            <li>
+              <NavLink to="/trad">FetchOld</NavLink>
+            </li>
+            <li>
+              <NavLink to="/rq">FetchRQ</NavLink>
+            </li>
+          </ul>
+        </div>
+      </header>
+    </>
+  );
 };
 
 export default Header;
