@@ -3,11 +3,15 @@ import MainLayout from "./components/MainLayout";
 import Home from "./components/pages/Home";
 import FetchOld from "./components/pages/FetchOld";
 import FetchRQ from "./components/pages/FetchRQ";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const App = () => {
+  const queryClient = new QueryClient();
   return (
     <>
-      <RouterProvider router={router}></RouterProvider>
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router}></RouterProvider>
+      </QueryClientProvider>
     </>
   );
 };
