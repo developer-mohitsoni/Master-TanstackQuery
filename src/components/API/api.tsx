@@ -5,6 +5,12 @@ const api = axios.create({
 });
 
 // to fetch the data
-export const fetchPosts = () => {
-  return api.get("/posts");
+export const fetchPosts = async () => {
+  try {
+    const res = await api.get("/posts");
+    return res.data;
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 };
