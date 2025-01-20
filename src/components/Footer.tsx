@@ -1,5 +1,9 @@
 const Footer = () => {
-  return <h1 className="text-3xl font-bold">Footer</h1>;
+  return (
+    <footer>
+      <p>copyright @TanstackQuery</p>
+    </footer>
+  );
 };
 
 export default Footer;
