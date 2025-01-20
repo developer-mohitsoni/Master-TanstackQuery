@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { fetchPosts } from "../API/api";
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,26 +8,9 @@ interface Post {
 }
 
 const FetchRQ = () => {
-  const getPostsData = async () => {
-    try {
-      const res = await fetchPosts();
-
-      console.log(res);
-
-      return res.data;
-    } catch (err) {
-      console.log(err);
-      return [];
-    }
-  };
-
-  useEffect(() => {
-    getPostsData();
-  }, []);
-
   const { data: posts } = useQuery<Post[]>({
     queryKey: ["posts"], // useState alternative working
-    queryFn: getPostsData, // useEffect alternative working
+    queryFn: fetchPosts, // useEffect alternative working
     refetchInterval: 10000, // 10 seconds
   });
 
