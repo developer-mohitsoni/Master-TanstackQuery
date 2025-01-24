@@ -1,6 +1,11 @@
 import { useState } from "react";
-import { fetchPosts } from "../API/api";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { deletePost, fetchPosts } from "../API/api";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 
 interface Post {
@@ -10,6 +15,7 @@ interface Post {
 }
 
 const FetchRQ = () => {
+  const queryClient = useQueryClient();
   const [pageNumber, setPageNumber] = useState(0);
   const {
     data: posts,
@@ -22,9 +28,20 @@ const FetchRQ = () => {
     // gcTime: 1000, // 10 seconds
     // staleTime: 1000 * 60 * 60, // 1sec * 60  => 1 minute * 60 => 1hr in milliseconds
     // refetchIntervalInBackground: true,
-    refetchInterval: 1000, // 1 seconds
-    refetchIntervalInBackground: true, // fetching the data even swicthing the tabs
+    // refetchInterval: 1000, // 1 seconds
+    // refetchIntervalInBackground: true, // fetching the data even swicthing the tabs
     placeholderData: keepPreviousData, // keep previous data in place before fetching the next data from the server and updating the previous data with the new data from the server.
+  });
+
+  //! mutation function to delete the post
+  const deleteMutation = useMutation({
+    mutationFn: (id: number) => deletePost(id),
+    onSuccess: (_, id) => {
+      // queryClient.setQueryData is used to update the cached data for a specific query. In this case, it's the query with the key ["post", pageNumber], which likely represents the list of posts on the current page.
+      queryClient.setQueryData<Post[]>(["posts", pageNumber], (curElem) => {
+        return curElem?.filter((post) => post.id !== id);
+      });
+    },
   });
 
   // Conditional rendering based on loading, error, and posts data
@@ -43,6 +60,7 @@ const FetchRQ = () => {
                 <p>{title}</p>
                 <p>{body}</p>
               </NavLink>
+              <button onClick={() => deleteMutation.mutate(id)}>Delete</button>
             </li>
           );
         })}
