@@ -16,7 +16,7 @@ const FetchOld = () => {
 
       console.log(res);
 
-      setPosts(res.data);
+      setPosts(res);
     } catch (err) {
       console.log(err);
       return [];
