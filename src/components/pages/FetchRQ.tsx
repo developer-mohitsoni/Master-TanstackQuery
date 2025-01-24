@@ -12,6 +12,7 @@ const FetchRQ = () => {
     queryKey: ["posts"], // useState alternative working
     queryFn: fetchPosts, // useEffect alternative working
     refetchInterval: 10000, // 10 seconds
+    gcTime: 1000, // 10 seconds
   });
 
   return (
