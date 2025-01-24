@@ -4,6 +4,7 @@ import Home from "./components/pages/Home";
 import FetchOld from "./components/pages/FetchOld";
 import FetchRQ from "./components/pages/FetchRQ";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const App = () => {
   const queryClient = new QueryClient();
@@ -11,6 +12,8 @@ const App = () => {
     <>
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}></RouterProvider>
+
+        <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </>
   );
