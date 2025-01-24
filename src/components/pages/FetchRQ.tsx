@@ -13,6 +13,7 @@ const FetchRQ = () => {
     queryFn: fetchPosts, // useEffect alternative working
     refetchInterval: 10000, // 10 seconds
     gcTime: 1000, // 10 seconds
+    staleTime: 1000 * 60 * 60, // 1sec * 60  => 1 minute * 60 => 1hr in milliseconds
   });
 
   return (
