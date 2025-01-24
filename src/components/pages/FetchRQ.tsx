@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { deletePost, fetchPosts } from "../API/api";
+import { deletePost, fetchPosts, updatePost } from "../API/api";
 import {
   keepPreviousData,
   useMutation,
@@ -44,6 +44,22 @@ const FetchRQ = () => {
     },
   });
 
+  //! mutation function to update the post
+  const updateMutation = useMutation({
+    mutationFn: (id: number) => updatePost(id),
+    onSuccess: (apiData, postId) => {
+      console.log(apiData, postId);
+
+      queryClient.setQueryData<Post[]>(["posts", pageNumber], (postsData) => {
+        return postsData?.map((curPost) => {
+          return curPost.id === postId
+            ? { ...curPost, title: apiData.data.title }
+            : curPost;
+        });
+      });
+    },
+  });
+
   // Conditional rendering based on loading, error, and posts data
   if (isPending) return <p>Loading...</p>;
   if (isError) return <p> Error: {error.message || "Something went wrong!"}</p>;
@@ -61,6 +77,7 @@ const FetchRQ = () => {
                 <p>{body}</p>
               </NavLink>
               <button onClick={() => deleteMutation.mutate(id)}>Delete</button>
+              <button onClick={() => updateMutation.mutate(id)}>Update</button>
             </li>
           );
         })}
