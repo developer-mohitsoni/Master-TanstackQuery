@@ -27,3 +27,8 @@ export const fetchInvPost = async (id: number) => {
 export const deletePost = (id: number) => {
   return api.delete(`/posts/${id}`);
 };
+
+/// to update the post
+export const updatePost = (id: number) => {
+  return api.put(`/posts/${id}`, { title: "I have updated" });
+};
