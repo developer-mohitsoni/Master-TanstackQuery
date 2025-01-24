@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { fetchPosts } from "../API/api";
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { NavLink } from "react-router-dom";
 
 interface Post {
@@ -24,6 +24,7 @@ const FetchRQ = () => {
     // refetchIntervalInBackground: true,
     refetchInterval: 1000, // 1 seconds
     refetchIntervalInBackground: true, // fetching the data even swicthing the tabs
+    placeholderData: keepPreviousData, // keep previous data in place before fetching the next data from the server and updating the previous data with the new data from the server.
   });
 
   // Conditional rendering based on loading, error, and posts data
