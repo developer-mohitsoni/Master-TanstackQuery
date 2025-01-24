@@ -23,3 +23,7 @@ export const fetchInvPost = async (id: number) => {
     console.log(error);
   }
 };
+
+export const deletePost = (id: number) => {
+  return api.delete(`/posts/${id}`);
+};
