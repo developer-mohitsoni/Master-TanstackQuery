@@ -14,3 +14,12 @@ export const fetchPosts = async (pageNumber: number) => {
     return [];
   }
 };
+
+export const fetchInvPost = async (id: number) => {
+  try {
+    const res = await api.get(`/posts/${id}`);
+    return res.status === 200 ? res.data : [];
+  } catch (error) {
+    console.log(error);
+  }
+};
