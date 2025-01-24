@@ -15,6 +15,7 @@ const FetchRQ = () => {
     // staleTime: 1000 * 60 * 60, // 1sec * 60  => 1 minute * 60 => 1hr in milliseconds
     // refetchIntervalInBackground: true,
     refetchInterval: 1000, // 1 seconds
+    refetchIntervalInBackground: true, // fetching the data even swicthing the tabs
   });
 
   return (
