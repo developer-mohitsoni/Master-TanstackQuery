@@ -32,3 +32,14 @@ export const deletePost = (id: number) => {
 export const updatePost = (id: number) => {
   return api.put(`/posts/${id}`, { title: "I have updated" });
 };
+
+export const fetchUsers = async ({ pageParam }: { pageParam: number }) => {
+  try {
+    const res = await axios.get(
+      `https://api.github.com/users?per_page=10&page=${pageParam}`
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
